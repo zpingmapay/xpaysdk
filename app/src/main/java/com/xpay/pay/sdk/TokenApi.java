@@ -1,17 +1,11 @@
 package com.xpay.pay.sdk;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.xpay.pay.sdk.util.CommonUtils;
 import com.xpay.pay.sdk.util.HttpUtils;
 import com.xpay.pay.sdk.util.LocalStorage;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by zma on 4/26/17.

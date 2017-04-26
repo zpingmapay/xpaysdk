@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.MalformedURLException;
 import java.io.IOException;
 import java.util.Map;
 
@@ -88,7 +87,7 @@ public class HttpUtils {
                 outputStream.write(mydata);
             }
             int responseCode = urlConnection.getResponseCode();
-            Log.e(TAG, "response code = "+responseCode);
+            Log.d(TAG, "response code = "+responseCode);
             if (responseCode == 200) {
                 return IOUtils.toString(urlConnection.getInputStream(), DEFAULT_ENCODING);
             }
