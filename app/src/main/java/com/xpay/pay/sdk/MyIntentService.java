@@ -24,6 +24,7 @@ public class MyIntentService extends IntentService {
         String storeId = intent.getStringExtra("store_id");
         String channel = intent.getStringExtra("channel");
         String totalFee = intent.getStringExtra("total_fee");
+        String token = tokenApi.getToken(appKey);
         String result = paymentApi.unifedOrder(appKey, storeId, channel, totalFee);
         Bundle b = new Bundle();
         b.putString("result", result);
