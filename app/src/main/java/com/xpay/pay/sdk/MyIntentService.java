@@ -5,6 +5,7 @@ package com.xpay.pay.sdk;
         import android.os.Bundle;
         import android.os.ResultReceiver;
 
+        import com.xpay.pay.sdk.util.AppConfig;
         import com.xpay.pay.sdk.util.HttpUtils;
 
 public class MyIntentService extends IntentService {
@@ -19,9 +20,10 @@ public class MyIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "onHandleIntent() ");
+        String storeId = AppConfig.XPayConfig.getProperty("xpay.store.id");
+        String appKey = AppConfig.XPayConfig.getProperty("xpay.app.key");
+
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
-        String appKey = intent.getStringExtra("app_key");
-        String storeId = intent.getStringExtra("store_id");
         String channel = intent.getStringExtra("channel");
         String totalFee = intent.getStringExtra("total_fee");
         String token = tokenApi.getToken(appKey);

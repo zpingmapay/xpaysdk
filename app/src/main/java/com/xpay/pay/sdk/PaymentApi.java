@@ -2,6 +2,7 @@ package com.xpay.pay.sdk;
 
 import android.util.Log;
 
+import com.xpay.pay.sdk.util.AppConfig;
 import com.xpay.pay.sdk.util.HttpUtils;
 
 import org.json.JSONException;
@@ -19,8 +20,14 @@ public class PaymentApi {
     private static final TokenApi tokenApi = new TokenApi();
 
     public String unifedOrder(String appKey, String storeId, String channel, String totalFee) {
-        String path = "http://10.0.2.2:8080/xpay/rest/v1/pay/unifiedorder?";
+        String baseUrl = AppConfig.XPayConfig.getProperty("xpay.base.endpoint");
+        String unifiedUrl = AppConfig.XPayConfig.getProperty("xpay.unifiedorder");
+        int timeout = AppConfig.XPayConfig.getProperty("xpay.timeout", 3000);
+
+        String path = baseUrl+unifiedUrl;
+        //String path = "http://10.0.2.2:8080/xpay/rest/v1/pay/unifiedorder?";
         StringBuffer sb = new StringBuffer(path);
+        sb.append("?");
         sb.append("storeId=").append(storeId);
         sb.append("&payChannel=").append(channel);
         sb.append("&totalFee=").append(totalFee);
@@ -30,7 +37,7 @@ public class PaymentApi {
         String token = tokenApi.getToken(appKey);
         Map<String, String> map = new HashMap<String, String>();
         map.put("Access_token", token);
-        String content = HttpUtils.doPost(sb.toString(), null, map, 3000);
+        String content = HttpUtils.doPost(sb.toString(), null, map, timeout);
         Log.d(TAG, "UifedOrder result "+content);
         try {
             JSONObject jsonObj = new JSONObject(content);
