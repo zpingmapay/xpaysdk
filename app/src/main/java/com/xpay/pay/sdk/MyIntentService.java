@@ -12,6 +12,7 @@ public class MyIntentService extends IntentService {
     private static final String TAG = MyIntentService.class.getSimpleName();
     private static final TokenApi tokenApi = new TokenApi();
     private static final PaymentApi paymentApi = new PaymentApi();
+    private static final UnifiedAppPay pay = new UnifiedAppPay();
 
     public MyIntentService() {
         super(TAG);
@@ -27,7 +28,10 @@ public class MyIntentService extends IntentService {
         String channel = intent.getStringExtra("channel");
         String totalFee = intent.getStringExtra("total_fee");
         String token = tokenApi.getToken(appKey);
-        String result = paymentApi.unifedOrder(appKey, storeId, channel, totalFee);
+        String result = paymentApi.unifiedOrder(appKey, storeId, channel, totalFee);
+
+        pay.pay(appKey, storeId,totalFee, MainActivity.activity);
+
         Bundle b = new Bundle();
         b.putString("result", result);
         try {

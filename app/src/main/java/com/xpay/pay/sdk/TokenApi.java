@@ -50,7 +50,7 @@ public class TokenApi {
 
     private static final long token_timeout = 24*60*60*1000L;
     private boolean isTokenExpired(String token) {
-        if(token == null || token.trim().length()==0) {
+        if(token == null || token.trim().length()==0 || token.length()<50 || token.indexOf("-")>0) {
             return true;
         }
         try {

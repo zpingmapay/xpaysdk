@@ -19,7 +19,7 @@ public class PaymentApi {
     private static final String TAG = PaymentApi.class.getSimpleName();
     private static final TokenApi tokenApi = new TokenApi();
 
-    public String unifedOrder(String appKey, String storeId, String channel, String totalFee) {
+    public String unifiedOrder(String appKey, String storeId, String channel, String totalFee) {
         String baseUrl = AppConfig.XPayConfig.getProperty("xpay.base.endpoint");
         String unifiedUrl = AppConfig.XPayConfig.getProperty("xpay.unifiedorder");
         int timeout = AppConfig.XPayConfig.getProperty("xpay.timeout", 3000);
@@ -35,10 +35,10 @@ public class PaymentApi {
         sb.append("&ip=127.0.0.1");
 
         String token = tokenApi.getToken(appKey);
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("Access_token", token);
         String content = HttpUtils.doPost(sb.toString(), null, map, timeout);
-        Log.d(TAG, "UifedOrder result "+content);
+        Log.d(TAG, "UnifedOrder result "+content);
         try {
             JSONObject jsonObj = new JSONObject(content);
             JSONObject data = jsonObj.getJSONObject("data");
